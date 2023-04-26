@@ -22,31 +22,31 @@ public class LogradouroController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroLogradouro dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity cadastrar(@RequestBody @Valid CadastroLogradouroDTO dados, UriComponentsBuilder uriBuilder){
         var logradouro = new Logradouro(dados);
         repository.save(logradouro);
         var uri = uriBuilder.path("/logradouro/{id}").buildAndExpand(logradouro.getId()).toUri();
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoLogradouro(logradouro));
+        return ResponseEntity.created(uri).body(new DetalhamentoLogradouroDTO(logradouro));
     }
 
     @GetMapping
-    public ResponseEntity<Page<DadosListagemLogradouro>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    public ResponseEntity<Page<ListagemLogradouroDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         //@PageableDefault(size = 10, sort = {"nome"})
         //o size padrão é 20
         //sort não tem padrão
 
-        var page = repository.findAll(paginacao).map(DadosListagemLogradouro::new);
+        var page = repository.findAll(paginacao).map(ListagemLogradouroDTO::new);
         return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody DadosAtualizacaoLogradouro dados){
+    public ResponseEntity atualizar(@RequestBody AtualizacaoLogradouroDTO dados){
         var logradouro = repository.getReferenceById(dados.id());
 
         logradouro.atualizarInformacoes(dados);
 
-        return ResponseEntity.ok(new DadosDetalhamentoLogradouro(logradouro));
+        return ResponseEntity.ok(new DetalhamentoLogradouroDTO(logradouro));
     }
 
     @DeleteMapping("/{id}")
@@ -61,7 +61,7 @@ public class LogradouroController {
     public ResponseEntity detalhar(@PathVariable Long id){
         var logradouro = repository.getReferenceById(id);
 
-        return ResponseEntity.ok(new DadosDetalhamentoLogradouro(logradouro));
+        return ResponseEntity.ok(new DetalhamentoLogradouroDTO(logradouro));
     }
 
 }

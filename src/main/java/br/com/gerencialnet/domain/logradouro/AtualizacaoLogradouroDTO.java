@@ -2,7 +2,7 @@ package br.com.gerencialnet.domain.logradouro;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizacaoLogradouro(
+public record AtualizacaoLogradouroDTO(
         @NotNull
         Long id,
         String nome,

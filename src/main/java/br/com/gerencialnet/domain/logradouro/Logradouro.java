@@ -27,12 +27,12 @@ public class Logradouro {
     @Column(name="logradouroabrev")
     private String abreviacao;
 
-    public Logradouro(DadosCadastroLogradouro dados) {
+    public Logradouro(CadastroLogradouroDTO dados) {
         this.nome = dados.nome();
         this.abreviacao = dados.abreviacao();
     }
 
-    public void atualizarInformacoes(DadosAtualizacaoLogradouro dados) {
+    public void atualizarInformacoes(AtualizacaoLogradouroDTO dados) {
         if(dados.nome() != null){
             this.nome = dados.nome();
         }
