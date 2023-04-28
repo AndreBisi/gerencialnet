@@ -55,7 +55,7 @@ public class CidadeController {
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity atualizar(@RequestBody AtualizacaoCidadeDTO dados) {
+	public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoCidadeDTO dados) {
 		var cidade = repository.getReferenceById(dados.id());
 
 		cidade.atualizarInformacoes(dados);

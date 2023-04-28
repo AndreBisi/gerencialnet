@@ -36,9 +36,8 @@ public class Logradouro {
         if(dados.nome() != null){
             this.nome = dados.nome();
         }
+        
+        this.abreviacao = dados.abreviacao();
 
-        if(dados.abreviacao() != null){
-            this.abreviacao = dados.abreviacao();
-        }
     }
 }

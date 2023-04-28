@@ -45,7 +45,7 @@ public class Movimento {
 		
 	}
 	
-	public void atualiarInformacoes(AtualizacaoMovimentoDTO dados) {
+	public void atualizarInformacoes(AtualizacaoMovimentoDTO dados) {
 		if(dados.nome() != null) {
 			this.nome = dados.nome();
 		}
@@ -65,7 +65,6 @@ public class Movimento {
 		if(dados.pagamento() != null) {
 			this.pagamento = dados.pagamento();
 		}
-	}
-	
+	}	
 
 }

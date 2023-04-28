@@ -41,7 +41,7 @@ public class LogradouroController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity atualizar(@RequestBody AtualizacaoLogradouroDTO dados){
+    public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoLogradouroDTO dados){
         var logradouro = repository.getReferenceById(dados.id());
 
         logradouro.atualizarInformacoes(dados);
