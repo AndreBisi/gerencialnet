@@ -1,34 +1,20 @@
 package br.com.gerencialnet.controller;
 
+import br.com.gerencialnet.domain.movimento.*;
+import br.com.gerencialnet.domain.movimento.validacoes.cadastro.ValidadorCadastroMovimento;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import br.com.gerencialnet.domain.cidade.AtualizacaoCidadeDTO;
-import br.com.gerencialnet.domain.cidade.DetalhamentoCidadeDTO;
-import br.com.gerencialnet.domain.logradouro.AtualizacaoLogradouroDTO;
-import br.com.gerencialnet.domain.logradouro.DetalhamentoLogradouroDTO;
-import br.com.gerencialnet.domain.logradouro.ListagemLogradouroDTO;
-import br.com.gerencialnet.domain.movimento.AtualizacaoMovimentoDTO;
-import br.com.gerencialnet.domain.movimento.CadastroMovimentoDTO;
-import br.com.gerencialnet.domain.movimento.DetalhamentoMovimentoDTO;
-import br.com.gerencialnet.domain.movimento.ListagemMovimentoDTO;
-import br.com.gerencialnet.domain.movimento.Movimento;
-import br.com.gerencialnet.domain.movimento.MovimentoRepository;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/movimento")
@@ -38,10 +24,15 @@ public class MovimentoController {
 	@Autowired
 	private MovimentoRepository repository;
 	
+    @Autowired
+    private List<ValidadorCadastroMovimento> validadores;
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity cadastrar(@RequestBody @Valid CadastroMovimentoDTO dados, UriComponentsBuilder uriBuilder) {
 		var movimento = new Movimento(dados);
+		
+		validadores.forEach(v -> v.validar(dados));
 		
 		repository.save(movimento);
 		
@@ -79,6 +70,8 @@ public class MovimentoController {
 	@Transactional
 	public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoMovimentoDTO dados) {
 		var movimento = repository.getReferenceById(dados.id());
+		
+		//validadores.forEach(v -> v.validar(dados));
 
 		movimento.atualizarInformacoes(dados);
 
