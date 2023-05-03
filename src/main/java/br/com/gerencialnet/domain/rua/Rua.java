@@ -1,7 +1,10 @@
 package br.com.gerencialnet.domain.rua;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.gerencialnet.domain.logradouro.CadastroLogradouroDTO;
 import br.com.gerencialnet.domain.logradouro.Logradouro;
-import jakarta.annotation.Nullable;
+import br.com.gerencialnet.domain.logradouro.LogradouroRepository;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,9 +31,19 @@ public class Rua {
     @Column(name="ruacep")
 	private String cep;
 	
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="logradourocod")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="logradourocod", nullable = true)
     @Embedded
-	private Logradouro logradouro;
+    private Logradouro logradouro;
+	
+    public Rua(CadastroRuaDTO dados) {
+        this.nome = dados.nome();
+        this.cep = dados.cep();
+        
+        if(dados.logradouro() != null) {
+        	
+        	this.logradouro = dados.logradouro();
+        }
+    }
 
 }

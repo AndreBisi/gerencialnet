@@ -26,7 +26,7 @@ public class Logradouro {
 
     @Column(name="logradouroabrev")
     private String abreviacao;
-
+    
     public Logradouro(CadastroLogradouroDTO dados) {
         this.nome = dados.nome();
         this.abreviacao = dados.abreviacao();
