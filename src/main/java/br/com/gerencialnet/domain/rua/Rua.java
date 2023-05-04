@@ -36,14 +36,4 @@ public class Rua {
     @Embedded
     private Logradouro logradouro;
 	
-    public Rua(CadastroRuaDTO dados) {
-        this.nome = dados.nome();
-        this.cep = dados.cep();
-        
-        if(dados.logradouro() != null) {
-        	
-        	this.logradouro = dados.logradouro();
-        }
-    }
-
 }

@@ -14,11 +14,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.gerencialnet.domain.cidade.CadastroCidadeDTO;
 import br.com.gerencialnet.domain.cidade.Cidade;
 import br.com.gerencialnet.domain.cidade.DetalhamentoCidadeDTO;
+import br.com.gerencialnet.domain.logradouro.DetalhamentoLogradouroDTO;
 import br.com.gerencialnet.domain.logradouro.LogradouroRepository;
 import br.com.gerencialnet.domain.rua.CadastroRuaDTO;
 import br.com.gerencialnet.domain.rua.DetalhamentoRuaDTO;
 import br.com.gerencialnet.domain.rua.Rua;
 import br.com.gerencialnet.domain.rua.RuaRepository;
+import br.com.gerencialnet.domain.rua.RuaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
@@ -29,6 +31,9 @@ public class RuaController {
 	
 	@Autowired
 	private RuaRepository ruaRepository;
+	
+	@Autowired
+	private RuaService ruaService;
 	
 	@GetMapping("/{id}")
 	public ResponseEntity detalhar(@PathVariable Long id) {
@@ -41,11 +46,10 @@ public class RuaController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity cadastrar(@RequestBody @Valid CadastroRuaDTO dados, UriComponentsBuilder uriBuilder) {
-		var rua = new Rua(dados);
-		ruaRepository.save(rua);
-		var uri = uriBuilder.path("/rua/{id}").buildAndExpand(rua.getId()).toUri();
-		return ResponseEntity.created(uri).body(new DetalhamentoRuaDTO(rua));
+        var dto = ruaService.gravar(dados);        
+        var rua = ruaRepository.getReferenceById(dto.id());        
+        var uri = uriBuilder.path("/rua/{id}").buildAndExpand(rua.getId()).toUri();
+        
+        return ResponseEntity.created(uri).body(dto);
 	}
-	
-
 }

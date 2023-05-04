@@ -12,7 +12,7 @@ public record CadastroRuaDTO(
 		String cep,
 		
 		@Nullable
-		Logradouro logradouro
+		Long idLogradouro
 		) {
 
 }

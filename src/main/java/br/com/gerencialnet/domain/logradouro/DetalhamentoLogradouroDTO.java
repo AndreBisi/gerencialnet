@@ -8,7 +8,5 @@ public record DetalhamentoLogradouroDTO(Long id, String nome, String abreviacao)
   				logradouro.getId(), 
   				logradouro.getNome(), 
   				logradouro.getAbreviacao());
-    	
-    	//this(1L, "nome", "abrev");
     }
 }
