@@ -22,6 +22,7 @@ import br.com.gerencialnet.domain.logradouro.Logradouro;
 import br.com.gerencialnet.domain.tipoBairro.AtualizacaoTipoBairroDTO;
 import br.com.gerencialnet.domain.tipoBairro.CadastroTipoBairroDTO;
 import br.com.gerencialnet.domain.tipoBairro.DetalhamentoTipoBairroDTO;
+import br.com.gerencialnet.domain.tipoBairro.ListagemTipoBairroDTO;
 import br.com.gerencialnet.domain.tipoBairro.TipoBairro;
 import br.com.gerencialnet.domain.tipoBairro.TipoBairroRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

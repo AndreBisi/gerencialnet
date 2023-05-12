@@ -1,6 +1,4 @@
-package br.com.gerencialnet.controller;
-
-import br.com.gerencialnet.domain.tipoBairro.TipoBairro;
+package br.com.gerencialnet.domain.tipoBairro;
 
 public record ListagemTipoBairroDTO(Long id, String nome, String abreviacao) {
 
