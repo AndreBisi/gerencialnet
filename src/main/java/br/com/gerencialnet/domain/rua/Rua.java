@@ -1,10 +1,6 @@
 package br.com.gerencialnet.domain.rua;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import br.com.gerencialnet.domain.logradouro.CadastroLogradouroDTO;
 import br.com.gerencialnet.domain.logradouro.Logradouro;
-import br.com.gerencialnet.domain.logradouro.LogradouroRepository;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
