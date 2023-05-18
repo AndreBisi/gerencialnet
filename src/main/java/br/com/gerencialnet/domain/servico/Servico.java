@@ -2,8 +2,6 @@ package br.com.gerencialnet.domain.servico;
 
 import java.math.BigDecimal;
 
-import br.com.gerencialnet.domain.logradouro.AtualizacaoLogradouroDTO;
-import br.com.gerencialnet.domain.movimento.Movimento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,10 +1,12 @@
 package br.com.gerencialnet.domain.bairro;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.gerencialnet.domain.tipoBairro.TipoBairro;
 import br.com.gerencialnet.domain.tipoBairro.TipoBairroRepository;
 
+@Service
 public class BairroService {
 	
 	@Autowired

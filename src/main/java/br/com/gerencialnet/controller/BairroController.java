@@ -16,40 +16,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gerencialnet.domain.rua.AtualizacaoRuaDTO;
-import br.com.gerencialnet.domain.rua.CadastroRuaDTO;
-import br.com.gerencialnet.domain.rua.DetalhamentoRuaDTO;
-import br.com.gerencialnet.domain.rua.ListagemRuaDTO;
-import br.com.gerencialnet.domain.rua.RuaRepository;
-import br.com.gerencialnet.domain.rua.RuaService;
+import br.com.gerencialnet.domain.bairro.AtualizacaoBairroDTO;
+import br.com.gerencialnet.domain.bairro.BairroRepository;
+import br.com.gerencialnet.domain.bairro.BairroService;
+import br.com.gerencialnet.domain.bairro.CadastroBairroDTO;
+import br.com.gerencialnet.domain.bairro.DetalhamentoBairroDTO;
+import br.com.gerencialnet.domain.bairro.ListagemBairroDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/rua")
+@RequestMapping("/bairro")
 @SecurityRequirement(name = "bearer-key")
-public class RuaController {
-
+public class BairroController {
+	
 	@Autowired
-	private RuaRepository ruaRepository;
-
+	private BairroRepository repository;
+	
 	@Autowired
-	private RuaService ruaService;
-
+	private BairroService service;
+	
 	@GetMapping("/{id}")
 	public ResponseEntity detalhar(@PathVariable Long id) {
 
-		var rua = ruaRepository.getReferenceById(id);
+		var bairro = repository.getReferenceById(id);
 
-		return ResponseEntity.ok(new DetalhamentoRuaDTO(rua));
+		return ResponseEntity.ok(new DetalhamentoBairroDTO(bairro));
 	}
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity cadastrar(@RequestBody @Valid CadastroRuaDTO dados, UriComponentsBuilder uriBuilder) {
-		var dto = ruaService.gravar(dados);
-		var rua = ruaRepository.getReferenceById(dto.id());
-		var uri = uriBuilder.path("/rua/{id}").buildAndExpand(rua.getId()).toUri();
+	public ResponseEntity cadastrar(@RequestBody @Valid CadastroBairroDTO dados, UriComponentsBuilder uriBuilder) {
+		var dto = service.gravar(dados);
+		var rua = repository.getReferenceById(dto.id());
+		var uri = uriBuilder.path("/bairro/{id}").buildAndExpand(rua.getId()).toUri();
 
 		return ResponseEntity.created(uri).body(dto);
 		//return ResponseEntity.ok(dto);
@@ -57,10 +57,10 @@ public class RuaController {
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoRuaDTO dados, UriComponentsBuilder uriBuilder) {
-		var dto = ruaService.atualizarInformacoes(dados);
-		var rua = ruaRepository.getReferenceById(dto.id());
-		var uri = uriBuilder.path("/rua/{id}").buildAndExpand(rua.getId()).toUri();
+	public ResponseEntity atualizar(@RequestBody @Valid AtualizacaoBairroDTO dados, UriComponentsBuilder uriBuilder) {
+		var dto = service.atualizarInformacoes(dados);
+		var rua = repository.getReferenceById(dto.id());
+		var uri = uriBuilder.path("/bairro/{id}").buildAndExpand(rua.getId()).toUri();
 
 		return ResponseEntity.ok(dto);
 	}
@@ -68,18 +68,20 @@ public class RuaController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
-    	ruaRepository.deleteById(id);
+    	repository.deleteById(id);
 
         return ResponseEntity.noContent().build();
     }
     
     @GetMapping
-    public ResponseEntity<Page<ListagemRuaDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    public ResponseEntity<Page<ListagemBairroDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         //@PageableDefault(size = 10, sort = {"nome"})
         //o size padrão é 20
         //sort não tem padrão
 
-        var page = ruaRepository.findAll(paginacao).map(ListagemRuaDTO::new);
+        var page = repository.findAll(paginacao).map(ListagemBairroDTO::new);
         return ResponseEntity.ok(page);
     }
+	
+
 }
