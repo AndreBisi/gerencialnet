@@ -1,5 +1,6 @@
-package br.com.gerencialnet.domain.vendedor;
+package br.com.gerencialnet.domain.tecnico;
 
+import br.com.gerencialnet.domain.vendedor.Vendedor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,32 +13,32 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name="tbvendedor")
+@Table(name="tbtecnico")
 @Entity
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Vendedor {
+public class Tecnico {
 	
 	@Id
-	@Column(name="vendedorcod", nullable = false)
-	@SequenceGenerator(name="sqvendedor", sequenceName="sqvendedor", allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "sqvendedor")
+	@Column(name="tecnicocod", nullable = false)
+	@SequenceGenerator(name="sqtecnico", sequenceName="sqtecnico", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "sqtecnico")	
 	private Long id;
 	
-	@Column(name="vendedornome")
+	@Column(name="tecniconome")
 	private String nome;
 	
-	@Column(name="vendedorativo")
+	@Column(name="tecnicoativo")
 	private Boolean ativo;
 	
-	public Vendedor(CadastroVendedorDTO dados) {
+	public Tecnico(CadastroTecnicoDTO dados) {
 		this.nome = dados.nome();
-		this.ativo = dados.ativo();		
+		this.ativo = dados.ativo();
 	}
 	
-	public void atualizarInformacoes(AtualizacaoVendedorDTO dados) {
+	public void atualizarInformacoes(AtualizacaoTecnicoDTO dados) {
 		if(dados.nome() != null) {
 			this.nome = dados.nome();
 		}

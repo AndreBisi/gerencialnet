@@ -1,7 +1,5 @@
 package br.com.gerencialnet.domain.tipoBairro;
 
-import br.com.gerencialnet.domain.logradouro.AtualizacaoLogradouroDTO;
-import br.com.gerencialnet.domain.logradouro.Logradouro;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

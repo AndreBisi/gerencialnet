@@ -3,7 +3,6 @@ package br.com.gerencialnet.domain.rua;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.gerencialnet.domain.logradouro.AtualizacaoLogradouroDTO;
 import br.com.gerencialnet.domain.logradouro.Logradouro;
 import br.com.gerencialnet.domain.logradouro.LogradouroRepository;
 

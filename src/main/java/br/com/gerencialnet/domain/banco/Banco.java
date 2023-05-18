@@ -1,9 +1,5 @@
 package br.com.gerencialnet.domain.banco;
 
-import java.math.BigDecimal;
-
-import br.com.gerencialnet.domain.servico.AtualizacaoServicoDTO;
-import br.com.gerencialnet.domain.servico.Servico;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

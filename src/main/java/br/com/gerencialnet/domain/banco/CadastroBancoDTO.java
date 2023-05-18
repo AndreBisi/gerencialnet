@@ -1,7 +1,5 @@
 package br.com.gerencialnet.domain.banco;
 
-import java.math.BigDecimal;
-
 import jakarta.validation.constraints.NotBlank;
 
 public record CadastroBancoDTO(
