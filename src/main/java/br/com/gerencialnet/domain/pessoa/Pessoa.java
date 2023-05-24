@@ -2,6 +2,7 @@ package br.com.gerencialnet.domain.pessoa;
 
 import java.time.LocalDateTime;
 
+import br.com.gerencialnet.domain.vendedor.AtualizacaoVendedorDTO;
 import br.com.gerencialnet.domain.vendedor.CadastroVendedorDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -89,7 +90,7 @@ public class Pessoa {
 		this.nome = dados.nome();
 		this.tipo = dados.tipo();
 		
-		if(dados.tipo() == "F") {
+		if(dados.tipo().equals("F")) {
 			this.razaoSocial = null;
 			this.cnpj = null;
 			this.dataNascimento = dados.dataNascimento();
@@ -118,4 +119,42 @@ public class Pessoa {
 		this.boletoPorEmail = dados.boletoPorEmail();
 		
 	}
+	
+	public void atualizarInformacoes(AtualizacaoPessoaDTO dados) {
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		
+		this.tipo = dados.tipo();
+		
+		if(dados.tipo().equals("F")) {
+			this.razaoSocial = null;
+			this.cnpj = null;
+			this.dataNascimento = dados.dataNascimento();
+			this.rg = dados.rg();
+			this.cpf = dados.cpf();
+			this.inscricaoEstadual = null;
+			this.inscricaoMunicipal = null;
+		}else {
+			this.razaoSocial = dados.razaoSocial();
+			this.cnpj = dados.cnpj();
+			this.dataNascimento = null;
+			this.rg = null;
+			this.cpf = null;
+			this.inscricaoEstadual = dados.inscricaoEstadual();
+			this.inscricaoMunicipal = dados.inscricaoMunicipal();			
+		}
+				
+		this.ativo = dados.ativo();
+		this.dataCadastro = LocalDateTime.now();
+		this.telefone = dados.telefone();
+		this.celular = dados.celular();
+		this.fax = dados.fax();
+		this.email = dados.email();
+		this.site = dados.site();
+		this.observacao = dados.observacao();
+		this.boletoPorEmail = dados.boletoPorEmail();
+
+	}
+
 }
