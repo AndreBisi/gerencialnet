@@ -2,8 +2,6 @@ package br.com.gerencialnet.domain.pessoa;
 
 import java.time.LocalDateTime;
 
-import br.com.gerencialnet.domain.tipoBairro.DetalhamentoTipoBairroDTO;
-
 public record DetalhamentoPessoaDTO(
 		Long id, 
 		String tipo,

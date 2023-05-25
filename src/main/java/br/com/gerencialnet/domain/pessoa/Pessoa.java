@@ -2,8 +2,6 @@ package br.com.gerencialnet.domain.pessoa;
 
 import java.time.LocalDateTime;
 
-import br.com.gerencialnet.domain.vendedor.AtualizacaoVendedorDTO;
-import br.com.gerencialnet.domain.vendedor.CadastroVendedorDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -2,6 +2,9 @@ package br.com.gerencialnet.domain.pessoa;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -17,8 +20,10 @@ public record CadastroPessoaDTO(
 		
 		String rg,
 		
+		@CPF
 		String cpf,
 		
+		@CNPJ
 		String cnpj,
 		
 		String inscricaoEstadual,
