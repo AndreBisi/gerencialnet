@@ -16,15 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.gerencialnet.domain.logradouro.AtualizacaoLogradouroDTO;
-import br.com.gerencialnet.domain.logradouro.DetalhamentoLogradouroDTO;
-import br.com.gerencialnet.domain.logradouro.ListagemLogradouroDTO;
 import br.com.gerencialnet.domain.servico.AtualizacaoServicoDTO;
 import br.com.gerencialnet.domain.servico.CadastroServicoDTO;
 import br.com.gerencialnet.domain.servico.DetalhamentoServicoDTO;
 import br.com.gerencialnet.domain.servico.ListagemServicoDTO;
 import br.com.gerencialnet.domain.servico.Servico;
 import br.com.gerencialnet.domain.servico.ServicoRepository;
+import br.com.gerencialnet.domain.usuarioSistema.UsuarioSistema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
@@ -70,12 +68,20 @@ public class ServicoController {
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) throws Exception{
         
-        try {
-        	repository.deleteById(id);
+    	System.out.println("print da bagacera 1");
+    	repository.deleteById(id);    	
+    	
+        try {        	
+        	System.out.println("print da bagacera 2 ");
         	return ResponseEntity.noContent().build();
         }
-        catch(Exception e){
-        	throw new Exception(e);        	
+        catch(RuntimeException e){
+        	System.out.println("print da bagacera 4 ");
+        	throw new RuntimeException("essa bosta aqui");
+        	
+        	//return ResponseEntity.notFound().build();
+        	
+        	//throw new Exception(e);        	
         }        		
         
     }
