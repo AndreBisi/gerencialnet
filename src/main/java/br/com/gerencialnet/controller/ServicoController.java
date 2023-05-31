@@ -68,10 +68,16 @@ public class ServicoController {
     
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluir(@PathVariable Long id){
-        repository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity excluir(@PathVariable Long id) throws Exception{
+        
+        try {
+        	repository.deleteById(id);
+        	return ResponseEntity.noContent().build();
+        }
+        catch(Exception e){
+        	throw new Exception(e);        	
+        }        		
+        
     }
     
     @GetMapping("/{id}")
