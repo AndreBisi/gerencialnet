@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,6 @@ import br.com.gerencialnet.domain.servico.DetalhamentoServicoDTO;
 import br.com.gerencialnet.domain.servico.ListagemServicoDTO;
 import br.com.gerencialnet.domain.servico.Servico;
 import br.com.gerencialnet.domain.servico.ServicoRepository;
-import br.com.gerencialnet.domain.usuarioSistema.UsuarioSistema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
@@ -69,20 +69,16 @@ public class ServicoController {
     public ResponseEntity excluir(@PathVariable Long id) throws Exception{
         
     	System.out.println("print da bagacera 1");
-    	repository.deleteById(id);    	
+    	repository.deleteById(id);  
     	
-        try {        	
-        	System.out.println("print da bagacera 2 ");
-        	return ResponseEntity.noContent().build();
-        }
-        catch(RuntimeException e){
-        	System.out.println("print da bagacera 4 ");
-        	throw new RuntimeException("essa bosta aqui");
-        	
-        	//return ResponseEntity.notFound().build();
-        	
-        	//throw new Exception(e);        	
-        }        		
+    	try {
+    		return ResponseEntity.noContent().build();
+    	}catch(JpaSystemException ex){
+       	
+    		return ResponseEntity.badRequest().body(ex.getMessage());
+    	}catch( Exception ex ) {
+    		return ResponseEntity.ok().build();
+    	}
         
     }
     
