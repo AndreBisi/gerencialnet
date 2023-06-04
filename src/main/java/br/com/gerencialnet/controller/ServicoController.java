@@ -68,18 +68,9 @@ public class ServicoController {
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) throws Exception{
         
-    	System.out.println("print da bagacera 1");
-    	repository.deleteById(id);  
-    	
-    	try {
-    		return ResponseEntity.noContent().build();
-    	}catch(JpaSystemException ex){
-       	
-    		return ResponseEntity.badRequest().body(ex.getMessage());
-    	}catch( Exception ex ) {
-    		return ResponseEntity.ok().build();
-    	}
-        
+    	repository.deleteById(id); 
+    	return ResponseEntity.noContent().build();
+    	        
     }
     
     @GetMapping("/{id}")
