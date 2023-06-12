@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -44,7 +45,7 @@ public class ServicoController {
     	return ResponseEntity.created(uri).body(new DetalhamentoServicoDTO(servico));
     }
     
-    @GetMapping
+   @GetMapping
     public ResponseEntity<Page<ListagemServicoDTO>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
         //@PageableDefault(size = 10, sort = {"nome"})
         //o size padrão é 20
@@ -53,6 +54,12 @@ public class ServicoController {
         var page = repository.findAll(paginacao).map(ListagemServicoDTO::new);
         return ResponseEntity.ok(page);
     }
+    
+    @GetMapping("listarFiltroNome")
+    public ResponseEntity<Page<ListagemServicoDTO>> listarFiltroNome(@RequestParam(value="nome", required=false) String nome, Pageable paginacao){
+        var page = repository.findByNomeContaining(nome, paginacao).map(ListagemServicoDTO::new);
+        return ResponseEntity.ok(page);
+    }    
     
     @PutMapping
     @Transactional
